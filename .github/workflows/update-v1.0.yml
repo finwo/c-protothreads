@@ -9,7 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - run: git config --global init.defaultBranch main
       - run: git config --global user.name $(git log -1 --pretty=format:'%an')
       - run: git config --global user.email $(git log -1 --pretty=format:'%ae')
-      - run: git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+      - run: git remote set-url origin https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}
       - run: scripts/build-tag.sh v1.0
