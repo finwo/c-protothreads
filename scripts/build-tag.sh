@@ -81,12 +81,12 @@ ini_foreach ini_output_full "${CFGFILE}" \
 # Create a commit+tag of this version and push to origin
 git -C "${DIR}/../build" add .
 git -C "${DIR}/../build" commit -m "Release (update) $(TZ=UTC date '+%Y-%m-%dT%H:%MZ')"
-git -C "${DIR}/../build" tag -f "${TAG}"
 git -C "${DIR}/../build" push -f origin HEAD
 
 # Push only specified tags
 while read tag; do
-  git push origin "refs/tags/${tag}"
+  git -C "${DIR}/../build" tag -f "${tag}"
+  git -C "${DIR}/../build" push -f origin "refs/tags/${tag}"
 done < <(ini_foreach ini_output_value "${CFGFILE}" "mirror.tag")
 
 # Done
