@@ -1,0 +1,83 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  release-v1_0:
+    name: (Update) release v1.0
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: git config --global init.defaultBranch main
+      - run: git config --global user.name $(git log -1 --pretty=format:'%an')
+      - run: git config --global user.email $(git log -1 --pretty=format:'%ae')
+      - run: git remote set-url origin https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}
+      - run: scripts/build-tag.sh v1.0
+
+  release-v1_1:
+    name: (Update) release v1.1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: git config --global init.defaultBranch main
+      - run: git config --global user.name $(git log -1 --pretty=format:'%an')
+      - run: git config --global user.email $(git log -1 --pretty=format:'%ae')
+      - run: git remote set-url origin https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}
+      - run: scripts/build-tag.sh v1.1
+
+  release-v1_2:
+    name: (Update) release v1.2
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: git config --global init.defaultBranch main
+      - run: git config --global user.name $(git log -1 --pretty=format:'%an')
+      - run: git config --global user.email $(git log -1 --pretty=format:'%ae')
+      - run: git remote set-url origin https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}
+      - run: scripts/build-tag.sh v1.2
+
+  release-v1_2_1:
+    name: (Update) release v1.2.1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: git config --global init.defaultBranch main
+      - run: git config --global user.name $(git log -1 --pretty=format:'%an')
+      - run: git config --global user.email $(git log -1 --pretty=format:'%ae')
+      - run: git remote set-url origin https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}
+      - run: scripts/build-tag.sh v1.2.1
+
+  release-v1_3:
+    name: (Update) release v1.3
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: git config --global init.defaultBranch main
+      - run: git config --global user.name $(git log -1 --pretty=format:'%an')
+      - run: git config --global user.email $(git log -1 --pretty=format:'%ae')
+      - run: git remote set-url origin https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}
+      - run: scripts/build-tag.sh v1.3
+
+  release-v1_4:
+    name: (Update) release v1.4
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: git config --global init.defaultBranch main
+      - run: git config --global user.name $(git log -1 --pretty=format:'%an')
+      - run: git config --global user.email $(git log -1 --pretty=format:'%ae')
+      - run: git remote set-url origin https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}
+      - run: scripts/build-tag.sh v1.4
+
+  release-cgraham:
+    name: (Update) release cgraham
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: git config --global init.defaultBranch main
+      - run: git config --global user.name $(git log -1 --pretty=format:'%an')
+      - run: git config --global user.email $(git log -1 --pretty=format:'%ae')
+      - run: git remote set-url origin https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}
+      - run: scripts/build-tag.sh cgraham
