@@ -1,0 +1,10 @@
+/**
+\defgroup pt Protothreads 
+@{ 
+Protothreads are implemented in a single header file, pt.h, which
+includes the local continuations header file, lc.h. This file in turn
+includes the actual implementation of local continuations, which
+typically also is contained in a single header file.
+
+*/
+
