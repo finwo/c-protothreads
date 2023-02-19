@@ -8,11 +8,11 @@ jobs:
     name: (Update) release v1.0
     runs-on: ubuntu-latest
     steps:
-      - name: Print a greeting
+      - name: Build, commit & push new version
         env:
           MY_VAR: Hi there! My name is
           FIRST_NAME: Mona
           MIDDLE_NAME: The
           LAST_NAME: Octocat
         run: |
-          echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME.
+          scripts/build-tag.sh v1.0
