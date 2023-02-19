@@ -52,7 +52,7 @@ rm -rf "${DIR}/../build"
 git init "${DIR}/../build"
 git -C "${DIR}/../build" remote add origin "$(git -C "${DIR}/../" remote get-url origin)"
 git -C "${DIR}/../build" fetch --all
-git -C "${DIR}/../build" checkout -b "release-${TAG}"
+git -C "${DIR}/../build" checkout "release-${TAG}" || git -C "${DIR}/../build" checkout -b "release-${TAG}"
 rm -rf "${DIR}/../build/*"
 
 # Load tarball into directory
