@@ -30,7 +30,7 @@
  *
  * Author: Adam Dunkels <adam@sics.se>
  *
- * $Id: example-codelock.c,v 1.3 2005/02/24 10:36:59 adam Exp $
+ * $Id: example-codelock.c,v 1.5 2005/10/06 07:57:08 adam Exp $
  */
 
 /*
@@ -51,6 +51,14 @@
  *
  *
  */
+
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <unistd.h>
+#include <sys/time.h>
+#endif
+#include <stdio.h>
 
 #include "pt.h"
 
@@ -109,7 +117,6 @@ key_pressed(void)
   return 0;
 }
 /*---------------------------------------------------------------------------*/
-
 /*
  * Declaration of the protothread function implementing the code lock
  * logic. The protothread function is declared using the PT_THREAD()
@@ -366,10 +373,14 @@ main(void)
     /*
      * When running this example on a multitasking system, we must
      * give other processes a chance to run too and therefore we call
-     * usleep() here. On a dedicated embedded system, we usually do
-     * not need to do this.
+     * usleep() resp. Sleep() here. On a dedicated embedded system,
+     * we usually do not need to do this.
      */
+#ifdef _WIN32
+    Sleep(0);
+#else
     usleep(10);
+#endif
   }
 
   return 0;
@@ -378,14 +389,22 @@ main(void)
 /*
  * Finally, the implementation of the simple timer library follows.
  */
-#include <sys/time.h>
- 
-static int clock_time(void) {
+#ifdef _WIN32
+
+static int clock_time(void)
+{ return (int)GetTickCount(); }
+
+#else /* _WIN32 */
+
+static int clock_time(void)
+{
   struct timeval tv;
   struct timezone tz;   
   gettimeofday(&tv, &tz); 
   return tv.tv_sec * 1000 + tv.tv_usec / 1000;
 }
+
+#endif /* _WIN32 */
 
 static int timer_expired(struct timer *t)
 { return (int)(clock_time() - t->start) >= (int)t->interval; }

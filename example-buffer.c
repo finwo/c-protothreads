@@ -30,9 +30,15 @@
  *
  * Author: Adam Dunkels <adam@sics.se>
  *
- * $Id: example-buffer.c,v 1.2 2005/02/24 10:36:59 adam Exp $
+ * $Id: example-buffer.c,v 1.5 2005/10/07 05:21:33 adam Exp $
  */
 
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <unistd.h>
+#endif
+#include <stdio.h>
 
 #include "pt-sem.h"
  
@@ -87,11 +93,11 @@ PT_THREAD(producer(struct pt *pt))
   
     PT_SEM_WAIT(pt, &full);
     
-    add_to_buffer(produce_item());    
+    add_to_buffer(produce_item());
     
     PT_SEM_SIGNAL(pt, &empty);
   }
- 
+
   PT_END(pt);
 }
  
@@ -142,13 +148,18 @@ main(void)
   PT_INIT(&driver_pt);
 
   while(PT_SCHEDULE(driver_thread(&driver_pt))) {
+
     /*
      * When running this example on a multitasking system, we must
      * give other processes a chance to run too and therefore we call
-     * usleep() here. On a dedicated embedded system, we usually do
-     * not need to do this.
+     * usleep() resp. Sleep() here. On a dedicated embedded system,
+     * we usually do not need to do this.
      */
+#ifdef _WIN32
+    Sleep(0);
+#else
     usleep(10);
+#endif
   }
   return 0;
 }

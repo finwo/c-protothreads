@@ -1,5 +1,9 @@
-all: example-codelock example-buffer
+CFLAGS=-O -Wuninitialized -Werror
 
-example-codelock: example-codelock.c
+all: example-codelock example-buffer example-small
 
-example-buffer: example-buffer.c
+example-codelock: example-codelock.c pt.h lc.h
+
+example-buffer: example-buffer.c pt.h lc.h
+
+example-small: example-small.c pt.h lc.h
